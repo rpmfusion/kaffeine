@@ -207,7 +207,7 @@ gtk-update-icon-cache %{_kde4_iconsdir}/oxygen &>/dev/null || :
 * Sat Dec 08 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.8.5-6
 - BR: kdelibs3-devel
 
-* Mon Oct 30 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.8.5-5
+* Tue Oct 30 2007 Rex Dieter <rdieter[AT]fedoraproject.org> 0.8.5-5
 - multiarch conflicts in kaffeine (#341681)
 
 * Wed Sep 19 2007 Ville Skyttä <ville.skytta at iki.fi> 0.8.5-4
