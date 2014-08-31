@@ -1,6 +1,6 @@
 Name:    kaffeine
 Version: 1.2.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -92,6 +92,9 @@ gtk-update-icon-cache %{_kde4_iconsdir}/oxygen &>/dev/null || :
 
 
 %changelog
+* Sun Aug 31 2014 Sérgio Basto <sergio@serjux.com> - 1.2.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
 * Wed Oct 23 2013 Xavier Bachelot <xavier@bachelot.org> - 1.2.2-7
 - Rebuild for xine-lib 1.2.
 
