@@ -1,6 +1,6 @@
 Name:    kaffeine
 Version: 1.2.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -13,6 +13,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 # fix build with g++ 4.7 (Christoph Pfister)
 # http://commits.kde.org/kaffeine/2da9df1e67004c3cfa879578c351300a99f23da1
 Patch100: kaffeine-1.2.2-gcc47.patch
+
+Patch101: kaffeine-1.2.2-gcc6.patch
+Patch102: kaffeine-1.2.2-cmake.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gettext
@@ -33,7 +36,8 @@ Kaffeine is a KDE media player.
 %prep
 %setup -q -n kaffeine-%{version}
 %patch100 -p1 -b .gcc47
-
+%patch101 -p1 -b .gcc6
+%patch102 -p1 -b .cmake
 
 %build
 mkdir -p %{_target_platform}
@@ -92,6 +96,9 @@ gtk-update-icon-cache %{_kde4_iconsdir}/oxygen &>/dev/null || :
 
 
 %changelog
+* Mon Jun 27 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.2.2-9
+- Patch for gcc6 and cmake changes
+
 * Sun Aug 31 2014 Sérgio Basto <sergio@serjux.com> - 1.2.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 

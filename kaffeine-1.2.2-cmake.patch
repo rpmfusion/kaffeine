@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -11,6 +11,7 @@
+   add_definitions(-DQT_STRICT_ITERATORS)
+ endif(DEFINED QT_VERSION_MAJOR)
+ 
++include(CheckIncludeFiles)
+ check_include_files(${CMAKE_CURRENT_SOURCE_DIR}/include/frontend.h HAVE_DVB)
+ 
+ if(NOT HAVE_DVB)
+
