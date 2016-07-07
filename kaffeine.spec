@@ -1,101 +1,96 @@
 Name:    kaffeine
-Version: 1.2.2
-Release: 9%{?dist}
+Version: 2.0.4
+Release: 2%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
 Group:   Applications/Multimedia
 URL:     http://kaffeine.kde.org/
-Source0: http://downloads.sourceforge.net/sourceforge/kaffeine/kaffeine-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
-## upstream patches
-# fix build with g++ 4.7 (Christoph Pfister)
-# http://commits.kde.org/kaffeine/2da9df1e67004c3cfa879578c351300a99f23da1
-Patch100: kaffeine-1.2.2-gcc47.patch
-
-Patch101: kaffeine-1.2.2-gcc6.patch
-Patch102: kaffeine-1.2.2-cmake.patch
+Source0: http://download.kde.org/stable/%{name}/%{version}/src/%{name}-%{version}.tar.xz
 
 BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
 BuildRequires: gettext
-BuildRequires: kdelibs4-devel
-BuildRequires: xine-lib-devel libXScrnSaver-devel
+BuildRequires: extra-cmake-modules
+BuildRequires: cmake(Qt5X11Extras)
+BuildRequires: cmake(KF5CoreAddons)
+BuildRequires: cmake(KF5I18n)
+BuildRequires: cmake(KF5WidgetsAddons)
+BuildRequires: cmake(KF5XmlGui)
+BuildRequires: cmake(KF5KIO)
+BuildRequires: cmake(KF5DBusAddons)
+BuildRequires: cmake(KF5DocTools)
+BuildRequires: pkgconfig(libvlc)
+BuildRequires: pkgconfig(libdvbv5)
+BuildRequires: pkgconfig(xscrnsaver)
 
-Obsoletes: kaffeine-libs < 1.0
-Obsoletes: kaffeine-devel < 1.0
-
-Requires: kdebase-runtime
-
-%{?_kde4_version:Requires: kdelibs4 >= %{_kde4_version}}
+Requires: kf5-kinit
+Requires: kio-extras
 
 %description
-Kaffeine is a KDE media player.
+Kaffeine is a KDE Frameworks media player.
 
 
 %prep
-%setup -q -n kaffeine-%{version}
-%patch100 -p1 -b .gcc47
-%patch101 -p1 -b .gcc6
-%patch102 -p1 -b .cmake
+%setup -q
 
 %build
 mkdir -p %{_target_platform}
 pushd %{_target_platform}
-%{cmake_kde4} ..
+%{cmake_kf5} ..
 popd
 
 make %{?_smp_mflags} -C %{_target_platform}
 
 
 %install
-rm -rf %{buildroot}
-
 make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
-%find_lang %{name} --with-kde
+%find_lang %{name} --with-qt --with-man --all-name
 
 
 %check
-desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/kde4/kaffeine.desktop
-
-
-%clean
-rm -rf %{buildroot}
+desktop-file-validate %{buildroot}/%{_kf5_datadir}/applications/org.kde.kaffeine.desktop
+appstream-util validate-relax --nonet %{buildroot}/%{_kf5_datadir}/appdata/org.kde.kaffeine.appdata.xml
 
 
 %post
-touch --no-create %{_kde4_iconsdir}/hicolor &>/dev/null || :
-touch --no-create %{_kde4_iconsdir}/oxygen &>/dev/null || :
+/usr/bin/update-desktop-database &> /dev/null || :
+/bin/touch --no-create %{_kf5_datadir}/icons/hicolor &>/dev/null || :
+
 
 %postun
 if [ $1 -eq 0 ] ; then
-  update-desktop-database %{_datadir}/applications &>/dev/null
-  touch --no-create %{_kde4_iconsdir}/hicolor &>/dev/null
-  gtk-update-icon-cache %{_kde4_iconsdir}/hicolor &>/dev/null || :
-  gtk-update-icon-cache %{_kde4_iconsdir}/oxygen &>/dev/null || :
+  /usr/bin/update-desktop-database &> /dev/null || :
+  /bin/touch --no-create %{_kf5_datadir}/icons/hicolor &>/dev/null || :
+  /usr/bin/gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &>/dev/null || :
 fi
 
 %posttrans
-update-desktop-database %{_datadir}/applications &>/dev/null
-gtk-update-icon-cache %{_kde4_iconsdir}/hicolor &>/dev/null || :
-gtk-update-icon-cache %{_kde4_iconsdir}/oxygen &>/dev/null || :
+/usr/bin/gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &>/dev/null || :
 
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
-%doc COPYING README
-%{_kde4_bindir}/kaffeine
-%{_kde4_bindir}/kaffeine-xbu
-%{_kde4_appsdir}/kaffeine/
-%{_kde4_appsdir}/solid/actions/*.desktop
-%{_kde4_datadir}/applications/kde4/kaffeine.desktop
-%{_kde4_iconsdir}/hicolor/*/*/*
-%{_kde4_iconsdir}/oxygen/*/*/*
-%{_kde4_appsdir}/profiles/kaffeine.profile.xml
-
+%doc README.md
+%license COPYING
+%{_kf5_bindir}/kaffeine
+%{_kf5_bindir}/dtvdaemon
+%{_kf5_datadir}/kaffeine/
+%{_kf5_datadir}/solid/actions/*.desktop
+%{_kf5_datadir}/applications/org.kde.kaffeine.desktop
+%{_kf5_datadir}/icons/hicolor/*/*/*
+%{_kf5_datadir}/appdata/org.kde.kaffeine.appdata.xml
+%{_kf5_datadir}/profiles/kaffeine.profile.xml
+%{_kf5_datadir}/doc/HTML/*/kaffeine/
+%{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Thu Jul 07 2016 Leigh Scott <leigh123linux@googlemail.com> - 2.0.4-2
+- add some missing runtime deps
+
+* Thu Jul 07 2016 Leigh Scott <leigh123linux@googlemail.com> - 2.0.4-1
+- update to 2.0.4 release
+
 * Mon Jun 27 2016 Leigh Scott <leigh123linux@googlemail.com> - 1.2.2-9
 - Patch for gcc6 and cmake changes
 
