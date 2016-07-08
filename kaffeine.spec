@@ -1,12 +1,18 @@
 Name:    kaffeine
 Version: 2.0.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
 Group:   Applications/Multimedia
 URL:     http://kaffeine.kde.org/
-Source0: http://download.kde.org/stable/%{name}/%{version}/src/%{name}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/%{name}/%{version}/src/%{name}-%{version}.tar.xz
+%global revision %(echo %{version} | cut -d. -f3)
+%if %{revision} >= 50
+%global stable unstable
+%else
+%global stable stable
+%endif
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -85,6 +91,9 @@ fi
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Fri Jul 08 2016 Leigh Scott <leigh123linux@googlemail.com> - 2.0.4-3
+- use kinit requires macro
+
 * Thu Jul 07 2016 Leigh Scott <leigh123linux@googlemail.com> - 2.0.4-2
 - add some missing runtime deps
 
