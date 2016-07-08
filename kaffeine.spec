@@ -1,6 +1,6 @@
 Name:    kaffeine
 Version: 2.0.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -30,7 +30,7 @@ BuildRequires: pkgconfig(libvlc)
 BuildRequires: pkgconfig(libdvbv5)
 BuildRequires: pkgconfig(xscrnsaver)
 
-%{?kf5_kinit_requires}
+Requires: kf5-kinit
 Requires: kio-extras
 
 %description
@@ -91,6 +91,9 @@ fi
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Fri Jul 08 2016 Leigh Scott <leigh123linux@googlemail.com> - 2.0.4-4
+- revert last commit
+
 * Fri Jul 08 2016 Leigh Scott <leigh123linux@googlemail.com> - 2.0.4-3
 - use kinit requires macro
 
