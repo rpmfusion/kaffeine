@@ -1,6 +1,6 @@
 Name:    kaffeine
 Version: 2.0.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -30,7 +30,6 @@ BuildRequires: pkgconfig(libvlc)
 BuildRequires: pkgconfig(libdvbv5)
 BuildRequires: pkgconfig(xscrnsaver)
 
-Requires: kf5-kinit
 Requires: kio-extras
 
 %description
@@ -91,6 +90,9 @@ fi
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Fri Jul 08 2016 Leigh Scott <leigh123linux@googlemail.com> - 2.0.4-5
+- rebuilt
+
 * Fri Jul 08 2016 Leigh Scott <leigh123linux@googlemail.com> - 2.0.4-4
 - revert last commit
 
