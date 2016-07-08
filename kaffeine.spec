@@ -81,7 +81,7 @@ fi
 %{_kf5_datadir}/icons/hicolor/*/*/*
 %{_kf5_datadir}/appdata/org.kde.kaffeine.appdata.xml
 %{_kf5_datadir}/profiles/kaffeine.profile.xml
-%{_kf5_datadir}/doc/HTML/*/kaffeine/
+%{_kf5_docdir}/HTML/*/kaffeine/
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
