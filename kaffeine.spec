@@ -24,7 +24,7 @@ BuildRequires: pkgconfig(libvlc)
 BuildRequires: pkgconfig(libdvbv5)
 BuildRequires: pkgconfig(xscrnsaver)
 
-Requires: kf5-kinit
+%{?kf5_kinit_requires}
 Requires: kio-extras
 
 %description
