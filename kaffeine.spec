@@ -1,6 +1,6 @@
 Name:    kaffeine
-Version: 2.0.4
-Release: 5%{?dist}
+Version: 2.0.5
+Release: 1%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -90,6 +90,9 @@ fi
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Sun Dec 11 2016 leigh scott <leigh123linux@googlemail.com> - 2.0.5-1
+- update to 2.0.5 release
+
 * Fri Jul 08 2016 Leigh Scott <leigh123linux@googlemail.com> - 2.0.4-5
 - rebuilt
 
