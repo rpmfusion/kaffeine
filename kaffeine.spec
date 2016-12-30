@@ -1,6 +1,6 @@
 Name:    kaffeine
 Version: 2.0.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -31,6 +31,10 @@ BuildRequires: pkgconfig(libdvbv5)
 BuildRequires: pkgconfig(xscrnsaver)
 
 Requires: kio-extras
+# The vlc package is shipping some needed output plugins.
+# vlc packaging could possibly be modified to allow for more granularity.
+# See https://bugzilla.rpmfusion.org/show_bug.cgi?id=4394
+Requires: vlc
 
 %description
 Kaffeine is a KDE Frameworks media player.
@@ -90,6 +94,9 @@ fi
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Fri Dec 30 2016 Xavier Bachelot <xavier@bachelot.org> - 2.0.5-2
+- Add Requires: vlc (fix rfbz#4394).
+
 * Sun Dec 11 2016 leigh scott <leigh123linux@googlemail.com> - 2.0.5-1
 - update to 2.0.5 release
 
