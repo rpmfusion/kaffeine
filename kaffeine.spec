@@ -1,6 +1,6 @@
 Name:    kaffeine
 Version: 2.0.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -35,6 +35,9 @@ Requires: kio-extras
 # vlc packaging could possibly be modified to allow for more granularity.
 # See https://bugzilla.rpmfusion.org/show_bug.cgi?id=4394
 Requires: vlc
+# Needed for open file dialog translations
+# See https://bugzilla.rpmfusion.org/show_bug.cgi?id=4450
+Requires: qt5-qttranslations
 
 %description
 Kaffeine is a KDE Frameworks media player.
@@ -81,7 +84,7 @@ fi
 
 %files -f %{name}.lang
 %doc README.md
-%license COPYING
+%license COPYING COPYING-DOCS
 %{_kf5_bindir}/kaffeine
 %{_kf5_bindir}/dtvdaemon
 %{_kf5_datadir}/kaffeine/
@@ -94,6 +97,10 @@ fi
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Sat Feb 11 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.5-3
+- Add Requires: qt5-qttranslations (fix rfbz#4450).
+- Add COPYING-DOCS
+
 * Fri Dec 30 2016 Xavier Bachelot <xavier@bachelot.org> - 2.0.5-2
 - Add Requires: vlc (fix rfbz#4394).
 
