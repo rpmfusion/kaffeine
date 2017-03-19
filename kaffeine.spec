@@ -1,6 +1,6 @@
 Name:    kaffeine
 Version: 2.0.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -97,6 +97,9 @@ fi
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Sun Mar 19 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 2.0.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Sat Feb 11 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.5-3
 - Add Requires: qt5-qttranslations (fix rfbz#4450).
 - Add COPYING-DOCS
