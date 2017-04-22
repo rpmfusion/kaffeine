@@ -1,6 +1,6 @@
 Name:    kaffeine
-Version: 2.0.5
-Release: 4%{?dist}
+Version: 2.0.9
+Release: 1%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -97,6 +97,9 @@ fi
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Sat Apr 22 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.9-1
+- update to 2.0.9 release
+
 * Sun Mar 19 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 2.0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
