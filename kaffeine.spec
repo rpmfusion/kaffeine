@@ -1,12 +1,11 @@
 Name:    kaffeine
-Version: 2.0.9
+Version: 2.0.10
 Release: 1%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
-Group:   Applications/Multimedia
 URL:     http://kaffeine.kde.org/
-Source0: http://download.kde.org/%{stable}/%{name}/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/%{name}/%{version}/src/%{name}-%{version}.tar.xz
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
 %global stable unstable
@@ -22,6 +21,7 @@ BuildRequires: cmake(Qt5X11Extras)
 BuildRequires: cmake(KF5CoreAddons)
 BuildRequires: cmake(KF5I18n)
 BuildRequires: cmake(KF5WidgetsAddons)
+BuildRequires: cmake(KF5WindowSystem)
 BuildRequires: cmake(KF5XmlGui)
 BuildRequires: cmake(KF5KIO)
 BuildRequires: cmake(KF5DBusAddons)
@@ -52,7 +52,7 @@ pushd %{_target_platform}
 %{cmake_kf5} ..
 popd
 
-make %{?_smp_mflags} -C %{_target_platform}
+%make_build -C %{_target_platform}
 
 
 %install
@@ -67,13 +67,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_datadir}/appdata/org.k
 
 
 %post
-/usr/bin/update-desktop-database &> /dev/null || :
 /bin/touch --no-create %{_kf5_datadir}/icons/hicolor &>/dev/null || :
 
 
 %postun
 if [ $1 -eq 0 ] ; then
-  /usr/bin/update-desktop-database &> /dev/null || :
   /bin/touch --no-create %{_kf5_datadir}/icons/hicolor &>/dev/null || :
   /usr/bin/gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &>/dev/null || :
 fi
@@ -97,6 +95,9 @@ fi
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Fri Jul 07 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.10-1
+- update to 2.0.10 release
+
 * Sat Apr 22 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.9-1
 - update to 2.0.9 release
 
