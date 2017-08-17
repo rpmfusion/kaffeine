@@ -92,7 +92,6 @@ fi
 %{_kf5_datadir}/appdata/org.kde.kaffeine.appdata.xml
 %{_kf5_datadir}/profiles/kaffeine.profile.xml
 %{_kf5_docdir}/HTML/*/kaffeine/
-%{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
 * Thu Aug 17 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.12-1
