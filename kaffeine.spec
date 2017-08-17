@@ -1,5 +1,5 @@
 Name:    kaffeine
-Version: 2.0.10
+Version: 2.0.12
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -95,6 +95,9 @@ fi
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Thu Aug 17 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.12-1
+- update to 2.0.12 release
+
 * Fri Jul 07 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.10-1
 - update to 2.0.10 release
 
