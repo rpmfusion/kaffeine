@@ -1,11 +1,11 @@
 Name:    kaffeine
-Version: 2.0.12
+Version: 2.0.13
 Release: 1%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
 URL:     http://kaffeine.kde.org/
-Source0: https://download.kde.org/%{stable}/%{name}/%{version}/src/%{name}-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/%{name}/%{name}-%{version}.tar.xz
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
 %global stable unstable
@@ -84,7 +84,6 @@ fi
 %doc README.md
 %license COPYING COPYING-DOCS
 %{_kf5_bindir}/kaffeine
-%{_kf5_bindir}/dtvdaemon
 %{_kf5_datadir}/kaffeine/
 %{_kf5_datadir}/solid/actions/*.desktop
 %{_kf5_datadir}/applications/org.kde.kaffeine.desktop
@@ -92,8 +91,12 @@ fi
 %{_kf5_datadir}/appdata/org.kde.kaffeine.appdata.xml
 %{_kf5_datadir}/profiles/kaffeine.profile.xml
 %{_kf5_docdir}/HTML/*/kaffeine/
+%{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Wed Oct 11 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.13-1
+- update to 2.0.13 release
+
 * Thu Aug 17 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.12-1
 - update to 2.0.12 release
 
