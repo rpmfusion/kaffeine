@@ -1,6 +1,6 @@
 Name:    kaffeine
 Version: 2.0.14
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -45,6 +45,8 @@ Kaffeine is a KDE Frameworks media player.
 
 %prep
 %setup -q
+# Remove broken locale, they can use pt instead till upstream fixes it. 
+rm -rf po/pt_BR
 
 %build
 mkdir -p %{_target_platform}
@@ -63,7 +65,11 @@ make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
 %check
 desktop-file-validate %{buildroot}/%{_kf5_datadir}/applications/org.kde.kaffeine.desktop
+%if 0%{?fedora} > 27
 appstream-util validate-relax --nonet %{buildroot}/%{_kf5_datadir}/metainfo/org.kde.kaffeine.appdata.xml
+%else
+appstream-util validate-relax --nonet %{buildroot}/%{_kf5_datadir}/appdata/org.kde.kaffeine.appdata.xml
+%endif
 
 
 %post
@@ -88,12 +94,20 @@ fi
 %{_kf5_datadir}/solid/actions/*.desktop
 %{_kf5_datadir}/applications/org.kde.kaffeine.desktop
 %{_kf5_datadir}/icons/hicolor/*/*/*
+%if 0%{?fedora} > 27
 %{_kf5_datadir}/metainfo/org.kde.kaffeine.appdata.xml
+%else
+%{_kf5_datadir}/appdata/org.kde.kaffeine.appdata.xml
+%endif
 %{_kf5_datadir}/profiles/kaffeine.profile.xml
 %{_kf5_docdir}/HTML/*/kaffeine/
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Sat Dec 23 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.14-2
+- remove broken pt_BR locale
+- fix appdata install
+
 * Sat Dec 23 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.14-1
 - update to 2.0.14 release
 
