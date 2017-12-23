@@ -1,5 +1,5 @@
 Name:    kaffeine
-Version: 2.0.13
+Version: 2.0.14
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -63,7 +63,7 @@ make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
 
 %check
 desktop-file-validate %{buildroot}/%{_kf5_datadir}/applications/org.kde.kaffeine.desktop
-appstream-util validate-relax --nonet %{buildroot}/%{_kf5_datadir}/appdata/org.kde.kaffeine.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}/%{_kf5_datadir}/metainfo/org.kde.kaffeine.appdata.xml
 
 
 %post
@@ -88,12 +88,15 @@ fi
 %{_kf5_datadir}/solid/actions/*.desktop
 %{_kf5_datadir}/applications/org.kde.kaffeine.desktop
 %{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/appdata/org.kde.kaffeine.appdata.xml
+%{_kf5_datadir}/metainfo/org.kde.kaffeine.appdata.xml
 %{_kf5_datadir}/profiles/kaffeine.profile.xml
 %{_kf5_docdir}/HTML/*/kaffeine/
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Sat Dec 23 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.14-1
+- update to 2.0.14 release
+
 * Wed Oct 11 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.13-1
 - update to 2.0.13 release
 
