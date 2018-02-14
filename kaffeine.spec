@@ -1,6 +1,6 @@
 Name:    kaffeine
 Version: 2.0.14
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -16,6 +16,7 @@ Source0: https://download.kde.org/%{stable}/%{name}/%{name}-%{version}.tar.xz
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 BuildRequires: gettext
+BuildRequires: ninja-build
 BuildRequires: extra-cmake-modules
 BuildRequires: cmake(Qt5X11Extras)
 BuildRequires: cmake(KF5CoreAddons)
@@ -51,14 +52,14 @@ rm -rf po/pt_BR
 %build
 mkdir -p %{_target_platform}
 pushd %{_target_platform}
-%{cmake_kf5} ..
+%{cmake_kf5} -GNinja ..
 popd
 
-%make_build -C %{_target_platform}
+%ninja_build -C %{_target_platform}
 
 
 %install
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
+%ninja_install -C %{_target_platform}
 
 %find_lang %{name} --with-qt --with-man --all-name
 
@@ -70,21 +71,6 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_datadir}/metainfo/org.
 %else
 appstream-util validate-relax --nonet %{buildroot}/%{_kf5_datadir}/appdata/org.kde.kaffeine.appdata.xml
 %endif
-
-
-%post
-/bin/touch --no-create %{_kf5_datadir}/icons/hicolor &>/dev/null || :
-
-
-%postun
-if [ $1 -eq 0 ] ; then
-  /bin/touch --no-create %{_kf5_datadir}/icons/hicolor &>/dev/null || :
-  /usr/bin/gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &>/dev/null || :
-fi
-
-%posttrans
-/usr/bin/gtk-update-icon-cache %{_kf5_datadir}/icons/hicolor &>/dev/null || :
-
 
 %files -f %{name}.lang
 %doc README.md
@@ -104,6 +90,10 @@ fi
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Wed Feb 14 2018 Leigh Scott <leigh123linux@googlemail.com> - 2.0.14-3
+- Use ninja to build
+- Remove scriptlets
+
 * Sat Dec 23 2017 Leigh Scott <leigh123linux@googlemail.com> - 2.0.14-2
 - remove broken pt_BR locale
 - fix appdata install
