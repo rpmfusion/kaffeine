@@ -1,6 +1,6 @@
 Name:    kaffeine
 Version: 2.0.14
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -90,6 +90,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_datadir}/appdata/org.k
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 2.0.14-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
 * Wed Feb 14 2018 Leigh Scott <leigh123linux@googlemail.com> - 2.0.14-3
 - Use ninja to build
 - Remove scriptlets
