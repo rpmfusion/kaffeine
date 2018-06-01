@@ -1,6 +1,6 @@
 Name:    kaffeine
-Version: 2.0.14
-Release: 4%{?dist}
+Version: 2.0.15
+Release: 1%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -12,6 +12,10 @@ Source0: https://download.kde.org/%{stable}/%{name}/%{name}-%{version}.tar.xz
 %else
 %global stable stable
 %endif
+
+# Fix breakages with qt5.11-rc2
+# https://github.com/KDE/kaffeine/commit/06b78c5f24891fd38d25ed64f5029106eec7c4fb
+Patch0: buildfix_qt511.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -45,7 +49,7 @@ Kaffeine is a KDE Frameworks media player.
 
 
 %prep
-%setup -q
+%autosetup -p1
 # Remove broken locale, they can use pt instead till upstream fixes it. 
 rm -rf po/pt_BR
 
@@ -66,11 +70,7 @@ popd
 
 %check
 desktop-file-validate %{buildroot}/%{_kf5_datadir}/applications/org.kde.kaffeine.desktop
-%if 0%{?fedora} > 27
-appstream-util validate-relax --nonet %{buildroot}/%{_kf5_datadir}/metainfo/org.kde.kaffeine.appdata.xml
-%else
-appstream-util validate-relax --nonet %{buildroot}/%{_kf5_datadir}/appdata/org.kde.kaffeine.appdata.xml
-%endif
+appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/org.kde.kaffeine.appdata.xml
 
 %files -f %{name}.lang
 %doc README.md
@@ -80,16 +80,15 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_datadir}/appdata/org.k
 %{_kf5_datadir}/solid/actions/*.desktop
 %{_kf5_datadir}/applications/org.kde.kaffeine.desktop
 %{_kf5_datadir}/icons/hicolor/*/*/*
-%if 0%{?fedora} > 27
-%{_kf5_datadir}/metainfo/org.kde.kaffeine.appdata.xml
-%else
-%{_kf5_datadir}/appdata/org.kde.kaffeine.appdata.xml
-%endif
+%{_kf5_metainfodir}/org.kde.kaffeine.appdata.xml
 %{_kf5_datadir}/profiles/kaffeine.profile.xml
 %{_kf5_docdir}/HTML/*/kaffeine/
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Fri Jun 01 2018 Leigh Scott <leigh123linux@googlemail.com> - 2.0.15-1
+- update to 2.0.15 release
+
 * Thu Mar 01 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 2.0.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
