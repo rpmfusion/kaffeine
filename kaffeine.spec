@@ -1,11 +1,17 @@
 Name:    kaffeine
-Version: 2.0.15
-Release: 3%{?dist}
+Version: 2.0.16
+Release: 1%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
-URL:     http://kaffeine.kde.org/
-Source0: https://download.kde.org/%{stable}/%{name}/%{name}-%{version}.tar.xz
+# URL:     http://kaffeine.kde.org/
+URL:     https://github.com/KDE/kaffeine
+# Source0: https://download.kde.org/%{stable}/%{name}/%{name}-%{version}.tar.xz
+# spectool -g kaffeine.spec
+Source0: %url/archive/%{version}/%{name}-%{version}.tar.gz
+# tarball from github doesn't have translations!
+# take them from https://download.kde.org/%{stable}/%{name}/%{name}-2.0.16-2.tar.xz
+Source1: /home/rave/Downloads/f30/kaffeine-po.tar.xz
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
 %global stable unstable
@@ -13,9 +19,9 @@ Source0: https://download.kde.org/%{stable}/%{name}/%{name}-%{version}.tar.xz
 %global stable stable
 %endif
 
-# Fix breakages with qt5.11-rc2
-# https://github.com/KDE/kaffeine/commit/06b78c5f24891fd38d25ed64f5029106eec7c4fb
-Patch0: buildfix_qt511.patch
+# mediawidget: fix a regression with next/previous logic
+# https://cgit.kde.org/kaffeine.git/commit/?id=ab5655e
+Patch1: kaffeine_0001-mediawidget-fix-a-regression-with-next-previous-logi.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -50,8 +56,7 @@ Kaffeine is a KDE Frameworks media player.
 
 %prep
 %autosetup -p1
-# Remove broken locale, they can use pt instead till upstream fixes it. 
-rm -rf po/pt_BR
+tar -xf %{SOURCE1}
 
 %build
 mkdir -p %{_target_platform}
@@ -86,6 +91,13 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/org.kde.k
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Thu Apr 04 2019 Wolfgang Ulbrich <fedora@raveit.de> 2.0.16-1
+- update to 2.0.16
+- use tarball from github with fixed versioning
+- drop previously applied patch
+- add translations from http://kaffeine.kde.org/
+- enable pt_br language again
+
 * Mon Mar 04 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.0.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
