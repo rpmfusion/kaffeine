@@ -11,7 +11,7 @@ URL:     https://github.com/KDE/kaffeine
 Source0: %url/archive/v%{version}/%{name}-%{version}.tar.gz
 # tarball from github doesn't have translations!
 # take them from https://download.kde.org/%{stable}/%{name}/%{name}-2.0.16-2.tar.xz
-Source1: /home/rave/Downloads/f30/kaffeine-po.tar.xz
+Source1: kaffeine-po.tar.xz
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
 %global stable unstable
