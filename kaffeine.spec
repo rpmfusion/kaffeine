@@ -1,27 +1,17 @@
 Name:    kaffeine
-Version: 2.0.16
+Version: 2.0.17
 Release: 1%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
-# URL:     http://kaffeine.kde.org/
-URL:     https://github.com/KDE/kaffeine
-# Source0: https://download.kde.org/%{stable}/%{name}/%{name}-%{version}.tar.xz
-# spectool -g kaffeine.spec
-Source0: %url/archive/v%{version}/%{name}-%{version}.tar.gz
-# tarball from github doesn't have translations!
-# take them from https://download.kde.org/%{stable}/%{name}/%{name}-2.0.16-2.tar.xz
-Source1: kaffeine-po.tar.xz
+URL:     http://kaffeine.kde.org/
+Source0: https://download.kde.org/%{stable}/%{name}/%{name}-%{version}.tar.xz
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
 %global stable unstable
 %else
 %global stable stable
 %endif
-
-# mediawidget: fix a regression with next/previous logic
-# https://cgit.kde.org/kaffeine.git/commit/?id=ab5655e
-Patch1: kaffeine_0001-mediawidget-fix-a-regression-with-next-previous-logi.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -56,7 +46,6 @@ Kaffeine is a KDE Frameworks media player.
 
 %prep
 %autosetup -p1
-tar -xf %{SOURCE1}
 
 %build
 mkdir -p %{_target_platform}
@@ -91,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/org.kde.k
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Thu May 02 2019 Wolfgang Ulbrich <fedora@raveit.de> 2.0.17-1
+- update to 2.0.17
+
 * Thu Apr 04 2019 Wolfgang Ulbrich <fedora@raveit.de> 2.0.16-1
 - update to 2.0.16
 - use tarball from github with fixed versioning
