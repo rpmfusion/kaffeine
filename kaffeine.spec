@@ -1,6 +1,6 @@
 Name:    kaffeine
 Version: 2.0.17
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/org.kde.k
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Fri Aug 09 2019 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.0.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Thu May 02 2019 Wolfgang Ulbrich <fedora@raveit.de> 2.0.17-1
 - update to 2.0.17
 
