@@ -1,5 +1,5 @@
 Name:    kaffeine
-Version: 2.0.17
+Version: 2.0.18
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/org.kde.k
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Fri Aug 09 2019 Wolfgang Ulbrich <fedora@raveit.de> 2.0.18-1
+- update to 2.0.18
+
 * Thu May 02 2019 Wolfgang Ulbrich <fedora@raveit.de> 2.0.17-1
 - update to 2.0.17
 
