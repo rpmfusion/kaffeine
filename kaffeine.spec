@@ -1,6 +1,8 @@
+%undefine __cmake_in_source_build
+
 Name:    kaffeine
 Version: 2.0.18
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -48,16 +50,12 @@ Kaffeine is a KDE Frameworks media player.
 %autosetup -p1
 
 %build
-mkdir -p %{_target_platform}
-pushd %{_target_platform}
-%{cmake_kf5} -GNinja ..
-popd
-
-%ninja_build -C %{_target_platform}
+%{cmake_kf5} -GNinja
+%{cmake3_build}
 
 
 %install
-%ninja_install -C %{_target_platform}
+%{cmake3_install}
 
 %find_lang %{name} --with-qt --with-man --all-name
 
@@ -80,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/org.kde.k
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Tue Jul 21 2020 Leigh Scott <leigh123linux@gmail.com> - 2.0.18-3
+- Improve compatibility with new CMake macro
+
 * Tue Feb 04 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.0.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
