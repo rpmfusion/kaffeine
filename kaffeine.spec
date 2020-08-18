@@ -2,7 +2,7 @@
 
 Name:    kaffeine
 Version: 2.0.18
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPLv2+
 Summary: KDE media player
@@ -78,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/org.kde.k
 %{_kf5_mandir}/man1/kaffeine.1.*
 
 %changelog
+* Tue Aug 18 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.0.18-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
 * Tue Jul 21 2020 Leigh Scott <leigh123linux@gmail.com> - 2.0.18-3
 - Improve compatibility with new CMake macro
 
